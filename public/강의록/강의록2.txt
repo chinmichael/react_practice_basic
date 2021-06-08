@@ -1,0 +1,68 @@
+1. JSX
+
+우선 App.js 기본 세팅
+
+import './App.css';
+
+function App() {
+  return (
+    <div className="App">
+	html 코드를 넣어줌
+    </div>
+  );
+}
+
+export default App; 
+
+
+Index 페이지 간단 작동 원리
+
+index.js의 
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+에서 public의 index.html의 <div id="root"></div> 부분에 App.js의 App class를 랜더링해줌
+
+
+=============================================================
+
+위의
+
+function App() {
+  return (
+    <div className="App">
+	html 코드를 넣어줌
+    </div>
+  );
+}
+
+정확히는 html이 아니라 JSX(일종의 JS)라는 문법을 작성해야함 (React에서는 html이 아니라 JSX)
+class가 아니라 className (이미 JS에서 class는 예약어임)
+
+React의 가장 큰 장점 중 하나 >> Vue도 마찬가지인데 데이터 바인딩이 매우 쉬움(이게 주 목적)
+그리고 이를 React에서는 JSX를 사용함으로서 실현 
+
+데이터 바인딩 : 서버 등에 받아온 데이터를 HTML에 뿌려줌
+이걸 기존 JS에서는 document.getElementsById 등으로 주구장창 했고 이게 좀 더 수월한게 jQuery
+
+하지만 위 라이브러리에선 JSX같은 유사 HTML에 직접 박거나 HTML에 Vue 문법으로 박는 등의 방법으로 해결 
+{ 변수명 } 으로 한방 (Vue에선 data(){}의 변수에서 {{변수명}})
+참고로 { 함수() } 도 가능함
+
+import 이미지변수 from 경로;
+<img src={이미지변수}> 로 바로 박을 수 있음 (Vue는 data(){}의 변수에서  v-bind:src="변수명" 혹은 :src="변수명"으로)
+
+물론 className에도 가능
+className = {} (Vue는 v-bind:class="`${변수명}` 그외클래스", :class="변수명")
+
+
+JSX style 넣을 때
+style = {{ color : 'blue' }} 로 오브젝트 형태로 (물론 CamelCase)
+>> 왜 {{}}이냐면 {변수}에서 변수에 들어가는 값이 {}오브젝트이므로
+
+Vue는 :style = "`background-image:url(${img_url})`" 이런 문자열이나 :style="{backgroundImage: `url(${post_data.postImage})`}" 오브젝트 형태 '문자열'

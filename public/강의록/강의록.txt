@@ -1,0 +1,67 @@
+리액트 필요이유 : Vue랑 마찬가지 : Web App (반응성 + React Native 등으로 앱발행도 쉬움)
+
+>> UX가 뛰어남
+>> HTML 관리가 용이함
+>> 모바일 앱으로도 제작 가능
+>> 서버 개발에도 편해짐 (프론트 백 분단이 되니)
+
+>> JS로 Ajax랑 HTML 조작을 잔뜩해야하는데
+>> 이를 효율적으로 처리해주는 라이브러리가 React나 Vue 등
+
+그 중 사용자가 제일 많은게 React (난 Vue가 취향이지만...)
+
+
+==================================================================
+
+1. 설치는 뭐 Vue랑 거의 동일
+
+Node.js 최신판 설치 후
+(혹시 환경상 문제 터지면 LTS로)
+
+VSCode에서 터미널로
+
+npx create-react-app 프로젝트명
+(create-react-app : 리액트 세팅이 다된 (boilerplate)프로젝트를 쉽게 만들어주는 라이브러리 https://ko.reactjs.org/docs/create-a-new-react-app.html)
+(Vue는 npm install -g @vue/cli@4.5.11 혹은 npm install vue(최신안정화 버전)으로  설치 후 vue create 프로젝트명)
+
+보안 오류 뜨면 다른 Vue와 똑같이 관리자권한 PowerShell에서 Set-ExecutionPolicy Unrestricted 
+권한 오류 뜨면 프로젝트 폴더에서 관리자권한으로 PowerShell 틀어서 작업
+
+맥북은 sudo 문법 sudo npx create-react-app 프로젝트명
+
+
+2. 미리보기 서버 트는건
+npm start (vue는 npm run serve)
+
+
+==================================================================
+
+npx(runner 실행)는 npm(node package module, manager 관리) 5.2.0부터 추가된(그래서 최신판 쓰란거)
+npm레지스트리에 올라간 패키지를 좀 더 쉽게 설치, 관리하기 위한 도구 = Node.js기반 파일을 좀 더 간단히 설치, 실행해줌
+
+npm = Node.js 의존성, 패키지 관리, 버전관리 지원
+npm install -> package.json파일에 의존성들을 지정할 수 있음
+
+npx = node 패키지를 실행하는 도구 다음 역할 수행
+1. 설치 경로에 실행할 패키지가 있는지 확인
+2. 있다면 실행 없다면 최신버전의 패키지를 설치 후 실행 (npx 패키지명 --no-install 을 하면 설치는 안하고 실행만하게 할 수 있음)
+
+만약 custom-pack이란 패키지를 실행하고자 할때는
+npx 없을때
+package.json에서 scripts 부분에 "custom-pack" : "경로"를 추가해 의존성을 추가해야함
+이후 npm run custom-pack
+
+npx있을 때 npx custom-pack >> 알아서 npm 레지스트리의 패키지 중 해당 패키지 최신버전을 설치 후 실행
+
+which npx 명령어로 현재 npm버전에 npx가 설치되어 있는지 확인 가능
+npm install -g npx 로 npx 설치도 가능
+
+========================================================================
+
+생성된 프로젝트에서 src/App.js가 index페이지에 들어갈 html을 짜는 곳 (실제 index는 public에 있음 index.js로 인해 여기로 박힌다)
+
+node_modules: npm으로 설치한 라이브러리 모음
+public : 웹사이트 static 파일 보관 (파비콘 등) << 프로젝트 발행 시 압축처리가 안되는 공간
+package.json : 설치 라이브러리 버전, 의존성 등 관리
+
+

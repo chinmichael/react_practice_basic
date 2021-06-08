@@ -1,24 +1,26 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import logo from './logo.svg'
 
 function App() {
+
+  let posts = "강남 맛집 : 레드밥스타";
+  let posts_style = { color: 'yellow', fontSize: '30px' };
+  function post_fun() {
+    return 100;
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className="black-nav">
+        {/* <div style={{ color: 'yellow', fontSize: '30px' }}>React Blog</div> */}
+        <div style={posts_style}>React Blog</div>
+        {/* <div>React Blog</div> */}
+      </div>
+      <h4>{posts}</h4>
+      <h4>{post_fun()}</h4>
+      <img src={logo} />
+    </div >
   );
 }
 
