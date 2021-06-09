@@ -1,0 +1,87 @@
+1. useState
+
+React 가장 중요한 개념 중 하나 State
+
+React 내장함수
+
+데이터 바인딩에서 쓸 데이터를 변수 외에 다른 방법으로 저장하는 것 (Vue의 data(){key:value})
+
+import {useState} from 'react'
+(혹은 import React, {usestate} from 'react'로 한줄로 해도됨)
+저건 const useState = react.useState;
+
+useState(데이터) 로 사용 -> [데이터, 데이터수정 함수] 가 생성됨
+따라서 아래와 같이 선언해 사용 가능
+let [a, b] = useState(데이터) : es6 destructuring 신문법
+
+들어가는 데이터는 모든 종류가 됨(Array, Object, 문자열 등)
+
+es6 destructuring 신문법
+기존에는 a = [10, 100] 요소 변수 저장시 b = a[0]; c =a[1];
+[a, b] = [10, 100] 이렇게 각 배열(Array)이나 객체(Object) 요소를 담을 변수를 같은 형식으로 풀어서 간단히 지정이 가능한 것
+
+
+State 사용하는 이유
+-> Web App을 만들기 위해 중요한 데이터를 모두 State에 박아야 하는 이유
+-> 데이터가 변경이 될 때 >> 자동으로 HTML 재랜더링이 됨 (변수 데이터는 변경시 새로고침해야됨) (진짜 Vue data(){key:value}랑 같은 이유)
+
+-> 물론 그렇기에 수시로 변경되지 않는 데이터는 변수나 하드코딩 하는게 나음
+
+React 등 프레임워크 사용 중요 이유 : 데이터 바인딩 / 자동 재랜더링
+
+# warning 부분 : eslint가 잡아주는 문법체크사항 (잘못된 관습이라던가 잡아주는 라이브러리:eslint)
+/* eslint-disable */ 를 최상단에 올려줌으로서 가릴 수는 있음
+
+# 크롬 주소창 우클릭으로 이모지 다운 가능
+
+==========================================================================================================================
+
+2. 이벤트 바인딩 (addEventListener 같은거 대신) + State 변경
+
+옛 JS <해당 태그 onclick="해당 함수">
+리액트 <해당 태그 onClick={}> (Vue의 경우 v-on:click="" 혹은 @click="") >> state변수를 변경시켜 (바인딩 이유) >> 실시간 재랜더링
+리액트는 onClick={}에 무조건 함수가 들어간다 (함수를 따로 정의하지 않을 경우 람다식) (Vue는 표현식도 가능) 
+추가로 주의할 점은 react에선(vue는 된다) onClick={함수명}이 아니라 onClick={함수명()}을 하면 클릭때가 아니라 바로 실행하란 소리가 되버린다. 
+
+state는 vue의 data(){}의 변수처럼 ++ 같은걸로 생으로 변경하지 않음
+useState()의 함수를 사용
+
+[데이터변수, 변경함수]에서
+이벤트 람다식에 변경함수(변경할 데이터) or 변경함수(데이터변수++) 등으로 처리
+이때 ()안의 값으로 데이터변수의 값이 모조리 바뀐다는 점이 포인트임 >> 배열등으로 된 데이터에선 좀 골치 (배열을 싹다 넣어서 부분만 바꿔야함)
+
+해당 함수의 경우 Vue는 methods:{}에다가
+
+
+==========================================================================================================================
+
+위에서 리액트 state변경 함수는 파라미터로 해당 데이터를 통쨰로 바꾸기에 Array 등에서 골치라고 함
+따라서 함수 설정을
+내부에서 새로 Array등을 생성하여 해당 데이터를 복사한뒤 일부 수정해서 그대로 넣는 방식으로 행한다.
+
+function ramenChange() {
+    //titleArrChange(titleArr = ['강남 라면 맛집', '강남 고기 맛집', '강남 파스타 맛집']); // state변경함수가 데이터를 통째로 변경시키기에 아래로 처리
+
+    let newArray = [...titleArr];
+    newArray[0] = "강남 라면 맛집";
+    titleArrChange(newArray);
+}
+
+이때 중요한건 깊은 복사를 해야함
+자바처럼 그냥 복사를 하면 Array나 Object는 얕은 복사가 일어남 >> 주소가 복사해서 값을 공유하는 것이 됨 >> 근데 state는 직접변경이 안되니까 되지도 않고 해서도 안됨
+JS는 간단히 {...} [...] 로 es6 신문법을 사용
+...은(spread 연산자) >> 중괄호, 대괄호 제거 >> 이후 다시 {},[]를 씌어줌으로서 새로운 배열, 객체를 만듦
+
+React 대원칙 : immutable data : state 직접 수정지양
+
+
+Tip : sort() 함수 재정의 (아래는 가나다순)
+
+newArray.sort((a, b) => {
+      const upperA = a.toUpperCase();
+      const upperB = b.toUpperCase();
+
+      if (upperA > upperB) return 1;
+      if (upperA < upperB) return -1;
+      if (upperA === upperB) return 0;
+    });

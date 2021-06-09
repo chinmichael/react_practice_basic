@@ -41,7 +41,7 @@ function App() {
   );
 }
 
-정확히는 html이 아니라 JSX(일종의 JS)라는 문법을 작성해야함 (React에서는 html이 아니라 JSX)
+정확히는 html이 아니라 JSX(일종의 JS로 HTML을 직관적으로 작성하기 위한 리액트 기본 내장문법)라는 문법을 작성해야함 (React에서는 html이 아니라 JSX)
 class가 아니라 className (이미 JS에서 class는 예약어임)
 
 React의 가장 큰 장점 중 하나 >> Vue도 마찬가지인데 데이터 바인딩이 매우 쉬움(이게 주 목적)
@@ -61,7 +61,7 @@ import 이미지변수 from 경로;
 className = {} (Vue는 v-bind:class="`${변수명}` 그외클래스", :class="변수명")
 
 
-JSX style 넣을 때
+JSX style 넣을 때는 무조건
 style = {{ color : 'blue' }} 로 오브젝트 형태로 (물론 CamelCase)
 >> 왜 {{}}이냐면 {변수}에서 변수에 들어가는 값이 {}오브젝트이므로
 
