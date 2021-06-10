@@ -4,8 +4,9 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
 
-body {
-  font-family: 'Noto Sans KR', sans-serif
+body, div, p {
+  font-family: 'Noto Sans KR', sans-serif;
+  box-sizing: border-box;
 }
 
 .black-nav {
@@ -15,6 +16,29 @@ body {
   color: white;
   padding: 20px;
   font-weight: 600;
+  margin-bottom: 0;
+}
+
+.menu {
+  background-color: #eee;
+  margin-top: 0;
+  padding : 5px;
+  padding-left: 30px;
+  padding-right: 30px;
+  text-align: right;
+}
+
+.menu p {
+  margin: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-weight: bold;
+}
+
+.menu hr {
+  background-color:aliceblue;
+  margin: 0;
+  padding: 0;
 }
 
 .list {
@@ -22,6 +46,12 @@ body {
   padding-left: 20px;
   padding-right: 20px;
   margin-top: 30px;
+}
+
+.detailModal {
+  padding: 20px;
+  background-color: #eee;
+  margin: 20px;
 }
 
 .App-logo {

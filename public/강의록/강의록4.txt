@@ -1,0 +1,137 @@
+상세페이지 모달 UI 만들기
+(페이지 이동의 경우 Router필요 >> 주소변경(get요청)이 서버로 가는걸 중간에 가로챔)
+
+
++ Component (리액트들을 쓰는 또 다른 이유)
+
+JSX에서 Component의 return() 최외각 div는 오직 하나여야함 만약 의미없는div를 쓰기 싫음 <> </> 라는 fragment 문법 사용
+Vue에서도 오류 안뜨려면 template에서 최외각을 <div>하나로 감싸야했음
+function Component명 {
+    return (
+        <div>
+        </div> 
+    )
+}
+
+특정 구획의 div를 한줄로 줄이는 방법
+
+하단 export default App; (발행 코드) 이전
+
+새로운 function 컴포넌트명() { return(<div></div>) }를 만든다. (컴포넌트는 대문자로 시작)
+이후 삽입할 상위 컴포넌트에 해당 <컴포넌트명/>으로 넣을 수 있음
+
+vue의 경우 아예 컴포넌트명.vue 파일을 만든 후
+삽입할 상위컴포넌트 <script>부분 최상단에 import 컴포넌트명 from 경로를 한뒤
+components:{
+    컴포넌트: 컴포넌트변수명,
+}
+지정 후
+<컴포넌트명/>으로 template에 삽입
+
++ Component 생성 기준 : 너무 많이 만들면 관리가 힘들어지므로
+>> 반복적으로 출현하는 UI를 컴포넌트로 만든다
+>> 자주 변경되는 UI를 컴포넌트를 만든다(재랜더링이 자주 일어나는 구간)
+>> 다른 페이지로 구분할 때
+
+>> 컴포넌트 단점 : state 관리면에서 (function()안에서 state를 선언하고 관리하기에)  : 만약 컴포넌트간 이동을 하려면 props 문법 사용해야함
+
+=================================================================================================================================
+
+UI 개발
+
+기존에 UI 숨기기는 getElementsById().style.display로 HTML을 조작하거나 클래스를 붙이거나...
+하지만 JSX는 일종의 JS이기도 하므로 if문을 사용할 수 있음
+JSX 중간에 변수 쓰려면 {}지만 if와 같은 구문은 안됨 >> 삼항 연산자를 {} 안에 사용
+예를 들어
+{
+        조건식 << 해당 변수를 state로 보관
+          ? <DetailModal></DetailModal>
+          : null  // 빈 HTML을 null로 표현(관습)
+}
+React는 State와 {삼항연산}통해 모달창 온오프를 한다
+
+onClick={}의 경우 내부에 함수명() 괄호까지 가면 랜더링 시 실행되므로
+()=>{} 콜백함수 내부에 넣어서 처리하면 된다 onClick={()=>{state함수(변경데이터)}}
+
+          // if (menuState) {
+          //   menuBtn(false);
+          // } else {
+          //   menuBtn(true);
+          // }
+
+          menuBtn(!menuState) 열고 닫는건 이렇게 boolean으로 하여 !로 처리해줘도 됨
+
+Vue는 컴포넌트 태그 속성에 v-if="조건"으로 처리가 되었다. 
+물론 state에 해당하는 data 사용
+(Vue 짱짱)
+
+=================================================================================================================================
+
+React 반복처리
+
+{}에 넣어 처리하되 if처럼 for문도 직접 넣을 수 없음 {}에는 변수명, 함수명만
+{}안에 map()함수를 써야함
+
+map() : JS Array 함수
+
+let arr = [1,2,3,4]
+
+let arr2 = arr.map((x)=>x+2) 등 안에 콜백함수로 배열 각 요소에 매핑이 가능 (map은 원본 변형시키지 않음)
+
+>> 배열을 이용해 유사 반복문으로 사용
+{반복데이터.map((반복요소)=>{return(<HTML>)})}
+
+{
+        titleArr.map((title) => {
+          return (
+            <div className="list">
+              <h4 onClick={(x) => { modalBtn(true) }}>{title}</h4>
+              <p>6월 9일 발행</p>
+              <hr />
+            </div>
+          )
+        })
+      }
+
+이런식으로 (기준배열요소)=>{} 안에 return()으로 JSX HTML을 박는다
+
+위는 좀 편법
+
+일반적인 for문 반복 (for in, for of도 마찬가지)
+
+컴포넌트 함수 내부에다가
+function 반복UI () {
+    let htmlArr = [];
+
+    for (let i = 0; i < state.length; i++) {
+        htmlArr.push(
+            <HTML>
+        );
+    }
+
+    return htmlArr
+}
+
+혹은
+
+function 반복UI () { // 이거 되나? >> 해보니까 된다고 한다
+    let htmlArr = [];
+
+    htmlArr.length = state.length
+
+    for (let i = 0; i < state.length; i++) {
+        htmlArr[i] = <HTML>;
+    }
+
+    return htmlArr
+}
+
+이를 중간에 {반복UI}를 삽입
+
+React는 이렇게 Array 안에 담긴 [<div></div>,<div></div>,<div></div>] 의 HTML들을(정확히는 JSX) 알아서 잘 랜더링 해줌
+
+
+갓 Vue의 경우는
+
+해당 div나 컴포넌트 태그의 속성으로
+v-for="(요소,키) in 반복데이터" :key="키" 로 반복을 시킴 >> 요소를 바로 쓸 수도 key로 뽑아낼 수도
