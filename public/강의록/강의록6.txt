@@ -1,0 +1,105 @@
+class 이용한 이전 React 문법
+
+>> 공식 React 문서에서도 function신문법을 추천하지만 예전 코드도 볼 수 있어야하므로
+>> 다행히 Java 등 객체지향 공부 + Vue 공부해서 그런지 오히려 이해가 꽤 편한 편이다.
+
+    (Angular랑 더 비슷할 수도 있는데... 이제 그만 Angular는)
+
+>> OldClass.js 파일 함께 참고
+
+>> class 형식 기본 토대 : Java와 마찬가지로 이를 기반으로 상속(extends)한 자식 class 만들기도 편하고 / class 기반 Object 만들수도 있음
+
+import React from 'react';
+import { useState } from 'react';
+
+class OldClass extends React.Component { // React의 컴포넌트 클래스는 React.Component를 상속 >> class = 객체 프레임 | 데이터=멤버변수=객체 속성 / 함수,메서드=객체행위
+    consturctor() { // 딱봐도 생성자 >> 클래스 변수, 초기값 저장
+        super(); 
+    }
+    render() { // 딱봐도 랜더링할 HTML을 이 함수에 박는다
+        return (
+            <div></div>
+        )
+    }
+}
+
+export default OldClass;
+
+>> Java 클래스랑 Vue랑 해서 많이 어딘가 본 느낌
+
+cf) function으로 만드는 경우
+
+import React from 'react';
+import { useState } from 'react';
+
+function App() {
+    return(
+        <div></div>
+    );
+}
+
+export default App;
+
+=========================================================================================================================================================
+
+class OldClass extends React.Component { 
+    consturctor() { 
+        super();
+
+        this.state = { key1:value, key2:value }
+    }
+
+    render() { 
+        return (
+            <div>
+                <h3>저는 { this.state.key1 }입니다<h3>
+                <button onClick={ () => {this.setState( {key:value})}}></button>
+            </div>
+        )
+    }
+}
+
+>> State 사용 오히려 Vue랑 비슷할 수 있음
+>> Vue에서 export default { data() { return { key: value, }}} 로 정해진 자리에 오브젝트로 넣은 것처럼
+>> React class컴포넌트에서는 생성자에 this.state 변수로 오브젝트로 넣어주고 >> JSX에 바인딩은 this.state.key 로 넣어준다
+
+>> state를 바꿀 때는 this.setState() 내장 함수로 해야하며 파라미터는 오브젝트로 바꾸려는 key와 value를 지정하면 됨 (deepCopy 필요없이 해당 key 부분만 수정됨 이건 useState보다 편함)
+
+=========================================================================================================================================================
+
+class OldClass extends React.Component { 
+    consturctor() { 
+        super();
+
+        this.state = { key1:value, key2:value }
+    }
+
+    changeFunction() { << 함수를 위치는 생성자와 랜더 함수 사이에 놔야함
+        this.setState({key:value})
+    }
+
+    render() { 
+        return (
+            <div>
+                <h3>저는 { this.state.key1 }입니다<h3>
+                <button onClick={this.changeFunction.bind(this)}></button>
+            </div>
+        )
+    }
+}
+
+>> 커스텀 function 위치는 생성자와 render(){} 사이에 둔다
+
+>> 자바에서 람다식을 쓰는 이유가 파라미터 등으로 메서드 사용범위를 넓히는 것이었다면
+   JS에서는 this(Java는 그냥 객체 자신인디)의 지정 객체를 정의하기 위해서임
+
+   >> arrow function에서 this는 상위 this(자신을 둘러싼 함수 or 객체)를 그대로 끌고와서 사용
+   >> function에서 this는 재정의됨(DOM으로)
+
+   >> 1. 따라서 위에서 changeFunction(){}으로 함수를 새로 정의하여 처리하는 경우는
+         > 함수 사용시 .bind(this)를 붙이거나
+         > .bind()는 함수 호출 혹은 정의 시 함수의 this 값을 파라미터 값으로 지정이 가능하게 함
+
+      2. changeFunction = () => {} 의 방식으로 arrow function으로 지정한다
+
+ 
