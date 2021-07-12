@@ -20,7 +20,9 @@ Node.js 최신판 설치 후
 
 VSCode에서 터미널로
 
+
 npx create-react-app 프로젝트명
+(명령이 없다고 함ㄴ npm install -g create-react-app 으로 설치 후 이용)
 (create-react-app : 리액트 세팅이 다된 (boilerplate)프로젝트를 쉽게 만들어주는 라이브러리 https://ko.reactjs.org/docs/create-a-new-react-app.html)
 (Vue는 npm install -g @vue/cli@4.5.11 혹은 npm install vue(최신안정화 버전)으로  설치 후 vue create 프로젝트명)
 
@@ -28,6 +30,12 @@ npx create-react-app 프로젝트명
 권한 오류 뜨면 프로젝트 폴더에서 관리자권한으로 PowerShell 틀어서 작업
 
 맥북은 sudo 문법 sudo npx create-react-app 프로젝트명
+
+
+1-1. 만약 이미 있는 프로젝트의 경우 clone 이후 npm install 로 모듈 설치를 진행후 프로젝트 진행
+
+2. 미리보기 서버 트는건
+npm start (vue는 npm run serve)
 
 
 2. 미리보기 서버 트는건
