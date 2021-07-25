@@ -60,6 +60,8 @@ import 이미지변수 from 경로;
 물론 className에도 가능
 className = {} (Vue는 v-bind:class="`${변수명}` 그외클래스", :class="변수명")
 
+Vue는 그냥 :class=""로 하면 된다 (참고로 Vue는 태그 안에 class 속성을 여러개 쓸 수 있음)
+
 
 JSX style 넣을 때는 무조건
 style = {{ color : 'blue' }} 로 오브젝트 형태로 (물론 CamelCase)
